@@ -31,6 +31,75 @@
             }
           }
         }
+      },
+      "/verify/otp": {
+        "post": {
+          "summary": "Verifying Account",
+          "description": "Verifying the otp send on your Email",
+          "tags": ["User"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "$ref": "#/definitions/Otp"
+              },
+              "required": true,
+              "description": "Verifying the otp send on your Email"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "user Account Verified successfully"
+            }
+          }
+        }
+      },
+      "/forgot/password": {
+        "post": {
+          "summary": "Reset New Password",
+          "description": "creating new password when forgot password",
+          "tags": ["User"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "$ref": "#/definitions/ForgotPassword"
+              },
+              "required": true,
+              "description": "Forgot Password"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "user updated Password successfully"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": " user Login",
+          "description": "Login ",
+          "tags": ["User"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              },
+              "required": true,
+              "description": "Login"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "user Login successfully"
+            }
+          }
+        }
       }
      
     },
@@ -63,6 +132,42 @@
 
         },
         "required": ["FirstName","LastName","Email","Password","ConfirmPassword"]
-      }
+      },
+      "Otp": {
+        "type": "object",
+        "properties": {
+          "Otp": {
+            "type": "number"
+          }
+        },
+        "required":["Otp"]
+        },
+        "ForgotPassword": {
+        "type": "object",
+        "properties": {
+          "Email": {
+            "type": "string"
+          },
+          "NewPassword":{
+            "type":"string"
+          },
+          "ConfirmNewPassword":{
+            "type":"string"
+          }
+        },
+        "required":["Email","NewPassword","ConfirmNewPassword"]
+        },
+        "Login": {
+        "type": "object",
+        "properties": {
+          "Email": {
+            "type": "string"
+          },
+          "Password":{
+            "type":"string"
+          }
+        },
+        "required":["Otp"]
+        }
 }
 }
