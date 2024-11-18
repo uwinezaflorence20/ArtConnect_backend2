@@ -5,7 +5,7 @@ import cors from "cors"
 import errorHandler from "./middlewares/errorHandler.js";
 import customError from "./middlewares/customError.js";
 import router from "./router/index.js";
-import swagger from "./docs/swagger.json" assert{type:"json"}
+import swagger from "./docs/swagger.json" assert { type: "json" };
 import swaggerUi from "swagger-ui-express"
 dotenv.config();
 const app=express();
