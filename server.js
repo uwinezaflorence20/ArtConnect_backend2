@@ -7,9 +7,23 @@ import CustomError from "./middlewares/customError.js";
 import router from "./router/index.js";
 // import swagger from "./docs/swagger.json" assert { type: "json" };
 // import swaggerUi from "swagger-ui-express";
-import swaggerUi from "swagger-ui-express";
+// import swaggerUi from "swagger-ui-express";
 // Use require to import JSON
-const swagger = require("./docs/swagger.json");
+// const swagger = require("./docs/swagger.json");
+
+import swaggerUi from "swagger-ui-express";
+
+const loadSwagger = async () => {
+    const swagger = await import("./docs/swagger.json", {
+        assert: { type: "json" },
+    });
+    return swagger.default;
+};
+
+// Setup Swagger UI
+loadSwagger().then((swagger) => {
+    app.use("/API/ArtConnect", swaggerUi.serve, swaggerUi.setup(swagger));
+});
 
 
 dotenv.config();
@@ -19,7 +33,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(router);
-app.use("/API/ArtConnect", swaggerUi.serve, swaggerUi.setup(swagger));
+// app.use("/API/ArtConnect", swaggerUi.serve, swaggerUi.setup(swagger));
 
 app.all('*', (req, res, next) => {
     const err = new CustomError(`Can't find ${req.originalUrl} on this server`, 404);
